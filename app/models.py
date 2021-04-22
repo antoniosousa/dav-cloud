@@ -2,7 +2,7 @@ import fdb
 from dotenv import load_dotenv
 from dotenv.main import dotenv_values
 
-from src.lojas_ips import hosts
+from app.lojas_ips import hosts
 
 load_dotenv()
 

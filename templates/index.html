@@ -1,6 +1,52 @@
 {% extends "bootstrap/base.html" %}
+
+{% block html_attribs %} lang="pt-br"{% endblock %}
 {% block title %} DAV-Sistemas {% endblock title %}
 
 {% block content %}
-<h1>teste</h1>
+<div class="container">
+    <p></p>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+          60%
+        </div>
+    </div>
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Lojas</th>
+                <th>SITEF</th>
+                <th>SYSPDVWEB</th>
+                <th>CRM</th>
+                <th>VALE GÁS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="warning">
+                <td>104 - AEROPORTO</td>
+                <td>OK</td>
+                <td>OK</td>
+                <td>X</td>
+                <td>OK</td>
+            </tr>
+            <tr class="danger">
+                <td>105 - SHOPPING DA CIDADE</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+                <td>X</td>
+            </tr>
+            <tr class="success">
+                <td>122 - HOMERO</td>
+                <td>OK</td>
+                <td>OK</td>
+                <td>OK</td>
+                <td>OK</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+
 {%endblock content%}

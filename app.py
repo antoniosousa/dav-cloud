@@ -4,7 +4,7 @@ from lojas_ips import hosts
 
 
 app = Flask(__name__)
-Bootstrap(app)
+bootstratp = Bootstrap(app)
 
 @app.route("/")
 def index():

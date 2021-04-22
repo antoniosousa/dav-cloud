@@ -1,0 +1,4 @@
+fdb
+Flask
+Flask-Bootstrap
+python-dotenv

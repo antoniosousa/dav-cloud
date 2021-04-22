@@ -37,6 +37,6 @@ def executar_consulta() -> list:
                 for (sitef, syspdvweb, crm, vale_gas) in cur:
                     resultado.append([cod_loja, sitef, syspdvweb, crm, vale_gas])
         except:
-            resultado.append([cod_loja, None])
+            resultado.append([cod_loja, None, None, None, None])
 
     return resultado

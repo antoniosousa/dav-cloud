@@ -1,11 +1,16 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-from lojas_ips import hosts
+from models import executar_consulta
 
 
 app = Flask(__name__)
 bootstratp = Bootstrap(app)
 
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    consulta = executar_consulta()
+    return render_template(
+        "index.html",
+        consulta=consulta,
+    )

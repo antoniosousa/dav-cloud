@@ -1,13 +1,13 @@
-import dotenv
-from dotenv.main import dotenv_values
 import fdb
-from fdb.fbcore import DatabaseError
-from lojas_ips import hosts
 from dotenv import load_dotenv
+from dotenv.main import dotenv_values
+
+from lojas_ips import hosts
 
 load_dotenv()
 
 CONFIG = dotenv_values(".env")
+
 
 def executar_consulta() -> list:
     __script = """
@@ -18,9 +18,9 @@ def executar_consulta() -> list:
      FROM CONFIGPDV      
     INNER JOIN CONF_PAGUECONTAS ON 1=1
     """
-    __database = r"C:\Syspdv\syspdv_srv.fdb"
-    __user = CONFIG['db_user']
-    __password = CONFIG['db_pass']
+    __database = CONFIG["db_path"]
+    __user = CONFIG["db_user"]
+    __password = CONFIG["db_pass"]
     resultado = list()
 
     for cod_loja in hosts:
@@ -34,14 +34,9 @@ def executar_consulta() -> list:
                 cur = con.cursor()
                 cur.execute(__script)
 
-                resultado.append(cod_loja)
-                resultado.append(cur.fetchall())
+                for (sitef, syspdvweb, crm, vale_gas) in cur:
+                    resultado.append([cod_loja, sitef, syspdvweb, crm, vale_gas])
         except:
-            resultado.append(cod_loja)
-            resultado.append(False)
+            resultado.append([cod_loja, None])
 
     return resultado
-
-
-a = executar_consulta()
-print(a)

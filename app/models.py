@@ -1,7 +1,10 @@
+import socket
+
 import fdb
 from dotenv import load_dotenv
 from dotenv.main import dotenv_values
 
+from app import db
 from app.lojas_ips import hosts
 
 load_dotenv()
@@ -40,3 +43,28 @@ def executar_consulta() -> list:
             resultado.append([cod_loja, None, None, None, None])
 
     return resultado
+
+class Url(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(50), index=True, unique=True)
+    ip_atual = db.Column(db.String(15), index=True)
+    ip_novo = db.Column(db.String(15), index=True)
+
+    def __repr__(self):
+        return f'<Url {self.nome}>'
+
+    def atualizar_ip_atual(self):
+        try:
+            ip = socket.gethostbyname(self.nome)
+            if ip == self.ip_atual or (self.ip_atual is None and ip is not None):
+                self.ip_atual = ip
+        except socket.gaierror:
+            self.ip_atual = None
+
+    def atualizar_ip_novo(self):
+        try:
+            ip = socket.gethostbyname(self.nome)
+            if self.ip_atual != ip:
+                self.ip_novo = ip
+        except socket.gaierror:
+            pass

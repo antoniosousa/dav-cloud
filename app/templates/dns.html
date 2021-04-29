@@ -1,0 +1,58 @@
+ {% extends "bootstrap/base.html" %}
+
+{% block html_attribs %} lang="pt-br"{% endblock %}
+{% block title %} DAV-Sistemas {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <ul class="nav nav-tabs">
+      <li role="presentation"><a href="/index">SysPDV</a></li>
+      <li role="presentation" class="active"><a href="/dns">DNS</a></li>
+    </ul>
+    <br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    <form class="form-inline" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.nome.label }}
+            {{ form.nome(size=50) }}
+            {% for error in form.nome.errors %}
+            <span style="color: #ff0000;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        {{ form.submit() }}
+    </form>
+    <br>
+    <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>DNS</th>
+                <th>ATUAL</th>
+                <th>NOVO</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in url %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.nome }}</td>
+                <td>{{ u.ip_atual }}</td>
+                <td>{{ u.ip_novo }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+{%endblock content%}

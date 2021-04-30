@@ -67,4 +67,4 @@ class Url(db.Model):
             if self.ip_atual != ip:
                 self.ip_novo = ip
         except socket.gaierror:
-            self.ip_novo = None
+            return None

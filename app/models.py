@@ -49,15 +49,28 @@ class Url(db.Model):
     nome = db.Column(db.String(50), index=True, unique=True)
     ip_atual = db.Column(db.String(15), index=True)
     ip_novo = db.Column(db.String(15), index=True)
+    ip_que_deve_ser = db.Column(db.String(15), index=True)
 
     def __repr__(self):
         return f'<Url {self.nome}>'
 
+    def atualizar_ip(self):
+        try:
+            ip = socket.gethostbyname(self.nome)
+            if self.ip_atual is None:
+                pass
+
+            if ip is not None:
+                pass
+            else:
+                return None
+        except socket.gaierror:
+            pass
+
     def atualizar_ip_atual(self):
         try:
             ip = socket.gethostbyname(self.nome)
-            if ip == self.ip_atual or (self.ip_atual is None and ip is not None):
-                self.ip_atual = ip
+            self.ip_atual = ip
         except socket.gaierror:
             self.ip_atual = None
 
@@ -67,4 +80,4 @@ class Url(db.Model):
             if self.ip_atual != ip:
                 self.ip_novo = ip
         except socket.gaierror:
-            pass
+            self.ip_novo = None

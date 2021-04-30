@@ -19,12 +19,15 @@ def dns():
     if form.validate_on_submit():
         url = Url.query.filter_by(nome=form.nome.data).first()
         if url is None:
-            url = Url(nome=form.nome.data)
+            url = Url(nome=form.nome.data, ip_que_deve_ser=form.ip_que_deve_ser.data)
             url.atualizar_ip_atual()
             db.session.add(url)
             db.session.commit()
+        elif form.ip_que_deve_ser.data and url.ip_que_deve_ser is None:
+            url.ip_que_deve_ser = form.ip_que_deve_ser.data
+            db.session.commit()
         else:
-            flash('URL JÁ CADASTRADA')
+            flash("URL JÁ CADASTRADO")
 
     urls = Url.query.all()
     for url in urls:

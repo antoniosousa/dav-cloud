@@ -24,6 +24,8 @@
         <div class="form-group">
             {{ form.nome.label }}
             {{ form.nome(size=50) }}
+            {{ form.ip_que_deve_ser.label }}
+            {{ form.ip_que_deve_ser(size=15) }}
             {% for error in form.nome.errors %}
             <span style="color: #ff0000;">[{{ error }}]</span>
             {% endfor %}
@@ -37,18 +39,20 @@
             <tr>
                 <th>#</th>
                 <th>DNS</th>
-                <th>ATUAL</th>
+                <th>ANTIGO</th>
+                <th>IP QUE DEVE SER</th>
                 <th>NOVO</th>
             </tr>
         </thead>
         <tbody>
             {% for u in url %}
-            <tr>
-                <td>{{ u.id }}</td>
-                <td>{{ u.nome }}</td>
-                <td>{{ u.ip_atual }}</td>
-                <td>{{ u.ip_novo }}</td>
-            </tr>
+                <tr {% if u.ip_que_deve_ser == u.ip_novo %} class="success" {% endif %}>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.nome }}</td>
+                    <td>{{ u.ip_atual }}</td>
+                    <td>{{ u.ip_que_deve_ser }}</td>
+                    <td>{{ u.ip_novo }}</td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>

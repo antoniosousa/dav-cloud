@@ -54,19 +54,6 @@ class Url(db.Model):
     def __repr__(self):
         return f'<Url {self.nome}>'
 
-    def atualizar_ip(self):
-        try:
-            ip = socket.gethostbyname(self.nome)
-            if self.ip_atual is None:
-                pass
-
-            if ip is not None:
-                pass
-            else:
-                return None
-        except socket.gaierror:
-            pass
-
     def atualizar_ip_atual(self):
         try:
             ip = socket.gethostbyname(self.nome)
